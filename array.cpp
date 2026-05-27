@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 #include<climits>
 using namespace std;
 
@@ -99,12 +100,70 @@ int kadan(int arr[], int size){
     return MaxSum;
 }
 
+// Pair Sum Brute force 
+vector<int> pairsum(vector<int> arr,int target){
+    vector<int> ans;
+    for(int i=0;i<arr.size();i++){
+        for(int j=i+1;j<arr.size();j++){
+            if(arr[i]+arr[j]==target){
+                ans.push_back(arr[i]);
+                ans.push_back(arr[j]);
+                return ans;
+            }
+        }
+    }
+    return ans;
+}
+
+// Pair Sum logical
+vector<int> pairSum(vector<int> arr, int target){
+    vector<int> ans(2,0);
+    int i=0;
+    int j=arr.size()-1;
+    while(i<j){
+        if(arr[i]+arr[j]<target){
+            i++;
+        }
+        else if(arr[i]+arr[j]>target){
+            j--;
+        }
+        else{
+            ans[0]=arr[i];
+            ans[1]=arr[j];
+            return ans;
+        }
+    }
+    return ans;
+}
+
+// Majority element brute force 1
+int majorelement(int arr[],int size){
+    for(int i=0;i<size;i++){
+        int count=0;
+        for(int j=i+1;j<size;j++){
+            if(arr[i]==arr[j]){
+                count++;
+            }
+        }
+        if(count>size/2){
+            return arr[i];
+        }
+    }
+}
+
+// Majority element brute force 2 (Only for sorted array)
+
+// Moore's voting algorithm 
+
+
+
 
 int main(){
-    int arr[]={4,2,7,-8,1,2,5};
+    int arr[]={1,2,3,1,2,5,1,6,1,7,1,8,1};
+    // vector<int> arr={1,2,2,4,5,7,8};
     // int arr2[]={5,3,8,9,2,3,6};
     int size=sizeof(arr)/sizeof(int);
-    // int target=7;
+    int target=7;
     // cout << linearsearch(arr,size,target) << endl;
     // for(int i=0;i<size;i++){
     //     cout << arr[i] << " "; 
@@ -119,5 +178,10 @@ int main(){
     // uniqueval(arr,size);
     // intersectionarr(arr, arr2, size, size);
     // cout << maxsum(arr, size);
-    cout<<kadan(arr, size);
+    // cout<<kadan(arr, size);
+    // vector<int> ans=pairSum(arr,target);
+    // for(int i=0;i<2;i++){
+    //     cout<<ans[i]<<" ";
+    // }
+    cout << majorelement(arr,size);
 }
